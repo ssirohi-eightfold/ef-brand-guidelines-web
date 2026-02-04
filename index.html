@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eightfold AI Component Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            color: #191841;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 700;
+            color: #191841;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #484B58;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .component-section {
+            background: white;
+            padding: 48px;
+            margin-bottom: 32px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid #0708EE;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191841;
+            margin-bottom: 8px;
+        }
+
+        .section-desc {
+            font-size: 14px;
+            color: #484B58;
+            line-height: 1.6;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .component-item {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .component-label {
+            font-size: 12px;
+            color: #0708EE;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .component-specs {
+            font-size: 11px;
+            color: #484B58;
+            line-height: 1.6;
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #88E2D2;
+            color: #191841;
+        }
+
+        .btn-primary:hover {
+            background: #6FD4C1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(136, 226, 210, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #0708EE;
+            border: 2px solid #0708EE;
+        }
+
+        .btn-secondary:hover {
+            background: #0708EE;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(120deg, #0708EE, #AF4FED);
+            color: white;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(120deg, #0506CC, #9D3FDB);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(7, 8, 238, 0.4);
+        }
+
+        .btn-gradient-alt {
+            background: linear-gradient(120deg, #0708EE, #EB5854);
+            color: white;
+        }
+
+        .btn-gradient-alt:hover {
+            background: linear-gradient(120deg, #0506CC, #D94843);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(7, 8, 238, 0.4);
+        }
+
+        .btn-small {
+            padding: 12px 24px;
+            font-size: 14px;
+        }
+
+        .btn-large {
+            padding: 20px 40px;
+            font-size: 18px;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #191841;
+            margin-bottom: 12px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #484B58;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #191841, #0708EE);
+            color: white;
+        }
+
+        .card-gradient .card-title {
+            color: white;
+        }
+
+        .card-gradient .card-text {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: #0708EE;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #191841;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #E8E8E8;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0708EE;
+            box-shadow: 0 0 0 3px rgba(7, 8, 238, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-primary {
+            background: #E8EAFF;
+            color: #0708EE;
+        }
+
+        .badge-success {
+            background: #E8F5F3;
+            color: #2B4279;
+        }
+
+        .badge-alert {
+            background: #FEE;
+            color: #EB5854;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 20px 24px;
+            border-radius: 8px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .alert-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .alert-info {
+            background: #E8EAFF;
+            color: #191841;
+            border-left: 4px solid #0708EE;
+        }
+
+        .alert-info .alert-icon {
+            background: #0708EE;
+            color: white;
+        }
+
+        .alert-success {
+            background: #E8F5F3;
+            color: #191841;
+            border-left: 4px solid #88E2D2;
+        }
+
+        .alert-success .alert-icon {
+            background: #88E2D2;
+            color: #191841;
+        }
+
+        .alert-warning {
+            background: #FEE;
+            color: #191841;
+            border-left: 4px solid #EB5854;
+        }
+
+        .alert-warning .alert-icon {
+            background: #EB5854;
+            color: white;
+        }
+
+        /* Quote/Testimonial */
+        .testimonial {
+            background: linear-gradient(120deg, #191841, #0708EE);
+            padding: 48px;
+            border-radius: 12px;
+            color: white;
+            position: relative;
+        }
+
+        .quote-mark {
+            font-size: 72px;
+            color: rgba(255, 255, 255, 0.2);
+            line-height: 0.8;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Stats Display */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: linear-gradient(135deg, #E8EAFF, #F9F9FF);
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #0708EE;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #484B58;
+            font-weight: 500;
+        }
+
+        /* Navigation Pills */
+        .nav-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 12px 24px;
+            background: transparent;
+            color: #484B58;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-pill:hover {
+            background: #E8EAFF;
+            color: #0708EE;
+        }
+
+        .nav-pill.active {
+            background: #0708EE;
+            color: white;
+        }
+
+        /* Tags */
+        .tag-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: #E8E8E8;
+            color: #484B58;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .tag-colored {
+            background: linear-gradient(120deg, #0708EE, #AF4FED);
+            color: white;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #484B58;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #E8E8E8;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0708EE, #AF4FED);
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 768px) {
+            .component-section {
+                padding: 24px;
+            }
+
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">eightfold.ai</div>
+            <div class="subtitle">Component Library</div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Buttons</div>
+                <div class="section-desc">Primary actions and CTAs using brand colors with hover states and elevation.
+                </div>
+            </div>
+
+            <div class="component-grid">
+                <div class="component-item">
+                    <div class="component-label">Primary Button</div>
+                    <button class="btn btn-primary">Get Started</button>
+                    <div class="component-specs">
+                        Background: #88E2D2<br>
+                        Text: #191841 (Core Navy)<br>
+                        Padding: 16px 32px<br>
+                        Font: Gilroy SemiBold 16px<br>
+                        Border Radius: 8px<br>
+                        Hover: Darken + elevate 2px + shadow
+                    </div>
+                </div>
+
+                <div class="component-item">
+                    <div class="component-label">Secondary Button</div>
+                    <button class="btn btn-secondary">Learn More</button>
+                    <div class="component-specs">
+                        Background: Transparent<br>
+                        Border: 2px solid #0708EE<br>
+                        Text: #0708EE<br>
+                        Hover: Fill background
+                    </div>
+                </div>
+
+                <div class="component-item">
+                    <div class="component-label">Gradient Button</div>
+                    <button class="btn btn-gradient">View Demo</button>
+                    <div class="component-specs">
+                        Background: Gradient 120deg<br>
+                        #0708EE → #AF4FED<br>
+                        Use for premium CTAs
+                    </div>
+                </div>
+
+                <div class="component-item">
+                    <div class="component-label">Gradient Button (Alt)</div>
+                    <button class="btn btn-gradient-alt">Get Started</button>
+                    <div class="component-specs">
+                        Background: Gradient 120deg<br>
+                        #0708EE → #EB5854<br>
+                        Blue to Orange variant
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-grid">
+                <div class="component-item">
+                    <div class="component-label">Button Sizes</div>
+                    <div style="display: flex; gap: 12px; flex-direction: column; align-items: start;">
+                        <button class="btn btn-primary btn-small">Small</button>
+                        <button class="btn btn-primary">Default</button>
+                        <button class="btn btn-primary btn-large">Large</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Cards</div>
+                <div class="section-desc">Content containers with elevation and hover effects for features, case
+                    studies, and information blocks.</div>
+            </div>
+
+            <div class="component-grid">
+                <div class="component-item">
+                    <div class="component-label">Standard Card</div>
+                    <div class="card">
+                        <div class="card-icon"></div>
+                        <div class="card-title">Talent Acquisition</div>
+                        <div class="card-text">Find and hire the right candidates faster with AI-powered insights and
+                            automation.</div>
+                        <button class="btn btn-primary btn-small">Learn More</button>
+                    </div>
+                    <div class="component-specs">
+                        Background: White<br>
+                        Shadow: 0 2px 8px rgba(0,0,0,0.1)<br>
+                        Padding: 32px<br>
+                        Hover: Elevate + increase shadow
+                    </div>
+                </div>
+
+                <div class="component-item">
+                    <div class="component-label">Gradient Card</div>
+                    <div class="card card-gradient">
+                        <div class="card-title">33%</div>
+                        <div class="card-text">Of our customers are Fortune 500 companies who trust Eightfold to move
+                            faster than the competition.</div>
+                    </div>
+                    <div class="component-specs">
+                        Background: Gradient 135deg<br>
+                        #191841 → #0708EE<br>
+                        Text: White<br>
+                        Use for stats and highlights
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Elements -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Form Elements</div>
+                <div class="section-desc">Input fields and form controls with focus states and accessibility
+                    considerations.</div>
+            </div>
+
+            <div class="component-grid">
+                <div class="component-item">
+                    <div class="component-label">Text Input</div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" placeholder="name@company.com">
+                    </div>
+                    <div class="component-specs">
+                        Border: 2px solid #E8E8E8<br>
+                        Padding: 14px 16px<br>
+                        Focus: #0708EE border + shadow<br>
+                        Border Radius: 8px<br>
+                        Font: 16px (prevents zoom on mobile)
+                    </div>
+                </div>
+
+                <div class="component-item">
+                    <div class="component-label">Textarea</div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-input" rows="4" placeholder="Tell us about your needs..."></textarea>
+                    </div>
+                    <div class="component-specs">
+                        Same styling as input<br>
+                        Min-height: 100px<br>
+                        Resize: vertical only
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badges & Tags -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Badges & Tags</div>
+                <div class="section-desc">Status indicators, labels, and category tags using brand color system.</div>
+            </div>
+
+            <div class="component-grid">
+                <div class="component-item">
+                    <div class="component-label">Badges</div>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <span class="badge badge-primary">New</span>
+                        <span class="badge badge-success">Active</span>
+                        <span class="badge badge-alert">Urgent</span>
+                    </div>
+                    <div class="component-specs">
+                        Padding: 6px 12px<br>
+                        Font: 12px SemiBold<br>
+                        Border Radius: 20px<br>
+                        Text Transform: Uppercase<br>
+                        Letter Spacing: 0.5px
+                    </div>
+                </div>
+
+                <div class="component-item">
+                    <div class="component-label">Tags</div>
+                    <div class="tag-group">
+                        <span class="tag">AI & Machine Learning</span>
+                        <span class="tag">Talent Intelligence</span>
+                        <span class="tag tag-colored">Featured</span>
+                    </div>
+                    <div class="component-specs">
+                        Background: #E8E8E8<br>
+                        Padding: 8px 16px<br>
+                        Font: 13px Medium<br>
+                        Colored tags use gradient
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Alert Messages</div>
+                <div class="section-desc">System messages and notifications with clear visual hierarchy and icons.</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div class="alert alert-info">
+                    <div class="alert-icon">i</div>
+                    <div>Your account has been successfully updated with new preferences.</div>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-icon">✓</div>
+                    <div>Registration complete! Check your email for next steps.</div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <div class="alert-icon">!</div>
+                    <div>This feature requires additional permissions. Contact your administrator.</div>
+                </div>
+            </div>
+
+            <div class="component-specs" style="margin-top: 16px;">
+                Padding: 20px 24px<br>
+                Border Left: 4px solid brand color<br>
+                Background: Tinted brand color<br>
+                Icon: 24px circle with symbol<br>
+                Font: 14px Regular
+            </div>
+        </div>
+
+        <!-- Stats Display -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Statistics Display</div>
+                <div class="section-desc">Highlight key metrics and achievements with prominent numbers.</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1B+</div>
+                    <div class="stat-label">Talent Profiles</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Enterprise Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Customer Satisfaction</div>
+                </div>
+            </div>
+
+            <div class="component-specs" style="margin-top: 16px;">
+                Background: Gradient tint<br>
+                Number: 48px Bold #0708EE<br>
+                Label: 14px Medium #484B58<br>
+                Padding: 32px 24px<br>
+                Center aligned
+            </div>
+        </div>
+
+        <!-- Testimonial/Quote -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Testimonials</div>
+                <div class="section-desc">Customer quotes and case study highlights with gradient backgrounds.</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="quote-mark">"</div>
+                <div class="testimonial-text">
+                    Eightfold AI transformed how we approach talent acquisition. We've reduced time-to-hire by 40% while
+                    improving candidate quality.
+                </div>
+                <div class="testimonial-author">Sarah Chen</div>
+                <div class="testimonial-role">VP of Talent, Fortune 500 Company</div>
+            </div>
+
+            <div class="component-specs" style="margin-top: 16px;">
+                Background: Gradient 120deg<br>
+                #191841 → #0708EE<br>
+                Padding: 48px<br>
+                Quote: 20px Italic<br>
+                Author: 16px SemiBold<br>
+                Color: White
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Navigation Pills</div>
+                <div class="section-desc">Tab-style navigation for filtering and categorization.</div>
+            </div>
+
+            <div class="nav-pills">
+                <button class="nav-pill active">All Products</button>
+                <button class="nav-pill">Talent Acquisition</button>
+                <button class="nav-pill">Talent Management</button>
+                <button class="nav-pill">Workforce Exchange</button>
+            </div>
+
+            <div class="component-specs" style="margin-top: 16px;">
+                Padding: 12px 24px<br>
+                Border Radius: 24px<br>
+                Font: 14px SemiBold<br>
+                Active: #0708EE background<br>
+                Hover: #E8EAFF background<br>
+                Transition: 0.3s ease
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="component-section">
+            <div class="section-header">
+                <div class="section-title">Progress Indicators</div>
+                <div class="section-desc">Visual progress tracking with gradient fills.</div>
+            </div>
+
+            <div class="component-grid">
+                <div class="component-item">
+                    <div class="component-label">Progress Bar</div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Profile Completion</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-item">
+                    <div class="component-label">Another Example</div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Skills Match</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-specs">
+                Height: 12px<br>
+                Background: #E8E8E8<br>
+                Fill: Gradient 90deg<br>
+                #0708EE → #AF4FED<br>
+                Border Radius: 20px<br>
+                Transition: 0.5s ease
+            </div>
+        </div>
+
+        <div
+            style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 2px solid #E8E8E8; color: #484B58; font-size: 14px;">
+            <p><strong>Component Library</strong> • Use these as building blocks for consistent brand experiences</p>
+            <p style="margin-top: 8px; font-size: 12px;">For questions: brand@eightfold.ai</p>
+        </div>
+    </div>
+</body>
+
+</html>
